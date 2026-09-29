@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: var(--font-anton), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand-300: #ffa25e;
+  --color-brand-400: #ff7a1a;
+  --color-brand-500: #ff4d00;
+  --color-brand-600: #e03e00;
+  --color-brand-700: #b23200;
+
+  --color-coal-800: #141416;
+  --color-coal-850: #101012;
+  --color-coal-900: #0a0a0b;
+  --color-coal-950: #060607;
+
+  --animate-marquee: marquee 28s linear infinite;
+  --animate-pulse-glow: pulseGlow 3.2s ease-in-out infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes pulseGlow {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 1; }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-coal-950);
+  color: #f4f4f5;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* ---------- film grain overlay ---------- */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- outlined display text ---------- */
+.text-stroke {
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.22);
+  color: transparent;
+}
+
+/* ---------- diagonal hazard stripes ---------- */
+.stripes {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--color-brand-500) 0px,
+    var(--color-brand-500) 14px,
+    #0a0a0b 14px,
+    #0a0a0b 28px
+  );
+}
+
+/* ---------- scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ---------- gradient text ---------- */
+.grad-text {
+  background: linear-gradient(100deg, #ff7a1a 10%, #ff2d00 55%, #ff7a1a 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- card hover lift ---------- */
+.lift {
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s, box-shadow 0.45s;
+}
+.lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 60px -18px rgba(255, 77, 0, 0.35);
+}
+
+::selection {
+  background: var(--color-brand-500);
+  color: #fff;
+}
