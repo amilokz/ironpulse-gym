@@ -687,7 +687,15 @@ export default function Home() {
             ))}
           </ul>
           <p className="text-center text-xs text-zinc-600">
-            © 2026 IronPulse Fitness Studio · Demo website concept crafted by AKCLNT
+            © 2026 IronPulse Fitness Studio · Demo website concept crafted by{" "}
+            <a
+              href="https://akclnt.com"
+              target="_blank"
+              rel="noopener"
+              className="text-zinc-400 underline-offset-2 transition-colors hover:text-brand-400 hover:underline"
+            >
+              AKCLNT
+            </a>
           </p>
         </div>
       </footer>
